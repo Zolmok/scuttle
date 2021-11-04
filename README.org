@@ -1,0 +1,4 @@
+
+* scuttle
+
+A Rust library I use with a couple of projects to simplify launching external apps.

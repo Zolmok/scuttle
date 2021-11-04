@@ -29,9 +29,19 @@ pub fn run_app<'a>(app: &App) -> Result<std::process::ExitStatus, std::io::Error
         Ok(None) => {
             Ok(child.wait().unwrap())
         },
-        Err(error) =>  Err(error),
+        Err(error) => Err(error),
     }
 }
+
+pub fn run_apps(apps: &[App]) {
+    for app in apps.iter() {
+        match run_app(app) {
+            Err(error) => panic!("panic{}", error),
+            Ok(_status) => continue,
+        };
+    }
+}
+
 
 #[cfg(test)]
 mod tests {
