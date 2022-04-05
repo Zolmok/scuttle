@@ -1,13 +1,13 @@
 use std::fmt::{self, Formatter, Display};
 use std::process::Command;
 
-struct Args<'a>(Vec<&'a str>);
-pub struct App<'a> {
+struct Args(Vec<String>);
+pub struct App {
     pub command: String,
-    pub args: Vec<&'a str>
+    pub args: Vec<String>
 }
 
-impl Display for Args<'_> {
+impl Display for Args {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         write!(f, "{}", self.0.join(" "))
     }
@@ -16,7 +16,7 @@ impl Display for Args<'_> {
 pub fn run_app<'a>(app: &App) -> Result<std::process::ExitStatus, std::io::Error> {
     println!("");
     println!("========================");
-    println!("$ {} {}", app.command, Args(app.args.clone()));
+    println!("$ {} {}", app.command, Args(app.args.to_owned()));
     println!("========================");
 
     let child_result = Command::new(app.command.clone())
